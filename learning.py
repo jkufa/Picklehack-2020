@@ -46,7 +46,7 @@ class Row:
     final_data = ""
     for i in range(len(my_set)):
       final_data += my_set[i] + " "
-    
+
     self.data = final_data
 
   def rtr_string(self):
@@ -80,24 +80,24 @@ for i in f.readlines():
 train = pd.read_csv('training.csv')
 test = pd.read_csv('testing.csv')
 
-combi = train.append(test, ignore_index=True)
+#combi = train.append(test, ignore_index=True)
 
 
-bow_vectorizer = CountVectorizer(max_df=0.90, min_df=2, max_features=1000, stop_words='english')
+#bow_vectorizer = CountVectorizer(max_df=0.90, min_df=2, #max_features=1000, stop_words='english')
 
-bow = bow_vectorizer.fit_transform(combi['data'])
+#bow = bow_vectorizer.fit_transform(combi['data'])
 
-train_bow = bow[:31962, :]
-test_bow = bow[31962:, :]
+#train_bow = bow[:31962, :]
+#test_bow = bow[31962:, :]
 
-xtrain_bow, xvalid_bow, ytrain, yvalid = train_test_split(train_bow, combi['flag'], random_state=42, test_size=0.3)
+#xtrain_bow, xvalid_bow, ytrain, yvalid = train_test_split#(train_bow, combi['flag'], random_state=42, test_size=0.3)
 
-lreg = LogisticRegression()
-lreg.fit(xtrain_bow, ytrain)
+#lreg = LogisticRegression()
+#lreg.fit(xtrain_bow, ytrain)
 
-prediction = lreg.predict_proba(xvalid_bow)
-prediction_int = prediction[:,1] >= 0.3
-prediction_int = prediction_int.astype(np.int)
+#prediction = lreg.predict_proba(xvalid_bow)
+#prediction_int = prediction[:,1] >= 0.3
+#prediction_int = prediction_int.astype(np.int)
 
 
 
@@ -112,4 +112,4 @@ prediction_int = prediction_int.astype(np.int)
 
 
 
-print(f1_score(yvalid, prediction_int))
+#print(f1_score(yvalid, prediction_int))
