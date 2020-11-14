@@ -17,7 +17,7 @@ from datetime import datetime
 
 
 tweet_id = 0
-GREEN='\033[92m'
+GREEN='\033[91m'
 RESET='\033[0m'
 
 # "@[\w]*" for twitter handles 
