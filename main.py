@@ -11,6 +11,9 @@ import sys
 import csv
 import random
 import string
+from random import randrange
+from datetime import timedelta
+from datetime import datetime
 
 
 tweet_id = 0
@@ -29,6 +32,15 @@ def remove_garbage(inpt):
   inpt = re.sub(r'\b\w{1,2}\b', '', inpt)
   return inpt
 
+def random_date(d1, d2):
+  start = datetime.strptime(d1, '%m/%d/%Y')
+  end = datetime.strptime(d2, '%m/%d/%Y')
+
+  delta = end - start
+  int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
+  random_second = randrange(int_delta)
+  return start + timedelta(seconds=random_second)
+
 def is_tweet_gamer(tweet):
   print(tweet)
   invalid_input = True
@@ -36,6 +48,7 @@ def is_tweet_gamer(tweet):
     is_gamer = input("Is the following tweet a gamer tweet? 2 = discard, 1 = yes, 0 = no: ")
     if(int(is_gamer) == 0 or int(is_gamer) == 1 or int(is_gamer) == 2):
       invalid_input = False
+      print('\n')
       return int(is_gamer)
     else:
       print("Error: invalid input. Please try again.")
@@ -56,8 +69,8 @@ def get_tweets_username(twitter, username):
 
 def get_tweets_random(twitter):
   char = random.choice(string.ascii_letters)
-  print(char)
-  data = twitter.search(q=char, tweet_mode='extended', count=500, lang='en', result_type='mixed')
+  rand_time = random_date("1/1/2017", "11/13/2020")
+  data = twitter.search(q=char, tweet_mode='extended', count=500, lang='en', result_type='mixed', since=rand_time)
   for tweet in data['statuses']:
     if random.randint(0,4) == 0:
       if "retweeted_status" in tweet:
