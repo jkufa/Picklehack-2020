@@ -37,10 +37,13 @@ twitter = Twython(keys[0], access_token=keys[2])
 
 info = twitter.search(q='pog', tweet_mode='extended', count=200)
 
+#info = twitter.get_user_timeline(name='mitchhit234', tweet_mode='extended', count=5)
+
 #pp = pprint.PrettyPrinter(indent=4)
 #pp.pprint(info)
 
 for tweet in info['statuses']:
+#for tweet in info
   print("Begin Tweet: ", end='')
   if "retweeted_status" in tweet:
     unfiltered = tweet["retweeted_status"]["full_text"]
@@ -51,9 +54,3 @@ for tweet in info['statuses']:
     print(unfiltered)
     print(filtered)
 
-
-#t = open("new.txt", "w")
-#for tweet in user_tweets:
- # t.write( str(tweet) + '\n' )
-
-#t.close()
