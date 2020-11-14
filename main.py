@@ -17,6 +17,8 @@ from datetime import datetime
 
 
 tweet_id = 0
+GREEN='\033[92m'
+RESET='\033[0m'
 
 # "@[\w]*" for twitter handles 
 # "[^a-zA-Z\s#]" for everything but letters and spaces
@@ -42,7 +44,7 @@ def random_date(d1, d2):
   return start + timedelta(seconds=random_second)
 
 def is_tweet_gamer(tweet):
-  print(tweet)
+  print(GREEN + tweet + RESET)
   invalid_input = True
   while(invalid_input):
     is_gamer = input("Is the following tweet a gamer tweet? 2 = discard, 1 = yes, 0 = no: ")
@@ -60,6 +62,7 @@ def get_tweets_username(twitter, username):
       unfiltered = tweet["retweeted_status"]["full_text"]
     else:
       unfiltered = tweet["full_text"]
+    unfiltered = unfiltered.replace('\n', ' ')
     filtered = remove_garbage(unfiltered)
     label = is_tweet_gamer(unfiltered)
     if label != 2:
@@ -75,9 +78,9 @@ def get_tweets_random(twitter):
     if random.randint(0,4) == 0:
       if "retweeted_status" in tweet:
         unfiltered = tweet["retweeted_status"]["full_text"]
-        unfiltered = unfiltered.replace('\n', ' ')
       else:
         unfiltered = tweet["full_text"]
+      unfiltered = unfiltered.replace('\n', ' ')
       filtered = remove_garbage(unfiltered)
       label = is_tweet_gamer(unfiltered)
       if label != 2:
