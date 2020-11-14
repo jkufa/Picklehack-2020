@@ -69,8 +69,8 @@ def get_tweets_username(twitter, username):
 
 def get_tweets_random(twitter):
   char = random.choice(string.ascii_letters)
-  rand_time = random_date("1/1/2017", "11/13/2020")
-  data = twitter.search(q=char, tweet_mode='extended', count=500, lang='en', result_type='mixed', since=rand_time)
+  rand_time = random_date("1/1/2017", "1/1/2020")
+  data = twitter.search(q=char, tweet_mode='extended', count=250, lang='en', result_type='mixed', since=rand_time)
   for tweet in data['statuses']:
     if random.randint(0,4) == 0:
       if "retweeted_status" in tweet:
