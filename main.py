@@ -78,6 +78,7 @@ def get_tweets_random(twitter):
         unfiltered = unfiltered.replace('\n', ' ')
       else:
         unfiltered = tweet["full_text"]
+        unfiltered = unfiltered.replace('\n', ' ')
       filtered = remove_garbage(unfiltered)
       label = is_tweet_gamer(unfiltered)
       if label != 2:
