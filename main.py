@@ -69,8 +69,13 @@ def get_tweets_username(twitter, username):
 
 def get_tweets_random(twitter):
   char = random.choice(string.ascii_letters)
+<<<<<<< HEAD
   rand_time = random_date("1/1/2017", "11/13/2020")
   data = twitter.search(q=char, tweet_mode='extended', count=500, lang='en', result_type='mixed', since=rand_time)
+=======
+  # print(char)
+  data = twitter.search(q=char, tweet_mode='extended', count=500, lang='en', result_type='mixed')
+>>>>>>> fec29345b71fe68ae41d6ca00eac0016384cd0dd
   for tweet in data['statuses']:
     if random.randint(0,4) == 0:
       if "retweeted_status" in tweet:
@@ -87,7 +92,7 @@ def csv_handling(filename, label, filt, unfilt):
   global tweet_id
   tweet_id += 1
   row = str(tweet_id) + ',' + str(label) + ',' + filt + ' \n'
-  f = open(filename+'.csv', 'a')
+  f = open('./data/'+filename+'.csv', 'a')
   f.write(row)
   f.close()
 
@@ -107,12 +112,12 @@ def main():
     get_tweets_username(twitter, username)
   else:
     try:
-      f = open('random.csv', 'r+')
+      f = open('./data/random.csv', 'r+')
       last_line = f.readlines()[-1]
       global tweet_id
       tweet_id = int(last_line.split(',')[0])
     except:
-      f = open('random.csv', 'a')
+      f = open('./data/random.csv', 'a')
     get_tweets_random(twitter)
   f.close()
 
