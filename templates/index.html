@@ -1,0 +1,14 @@
+{% extends "_base.html" %}
+{% block title %}Gamer Tweets{% endblock %}
+{% block body %}
+<main class="home">
+  <section class="enter-tweet">
+    <h1>Gamer Tweet Detector</h1>
+    <form action="#" method="POST">
+      <label>Find out if your favorite tweet is a gamer tweet or not.</label>
+      <input type="text" class="form-control" id="tweet-url" name="tweet-url" placeholder="Enter a tweet url" required>
+      <button name="submit-tweet" type="submit" class="btn submit-tweet" id="submit">Submit</button>
+    </form>
+  </section>
+</main>
+{% endblock %}
