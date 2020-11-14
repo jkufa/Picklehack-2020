@@ -60,6 +60,7 @@ def get_tweets_username(twitter, username):
       unfiltered = tweet["retweeted_status"]["full_text"]
     else:
       unfiltered = tweet["full_text"]
+    unfiltered = unfiltered.replace('\n', ' ')
     filtered = remove_garbage(unfiltered)
     label = is_tweet_gamer(unfiltered)
     if label != 2:
@@ -75,10 +76,9 @@ def get_tweets_random(twitter):
     if random.randint(0,4) == 0:
       if "retweeted_status" in tweet:
         unfiltered = tweet["retweeted_status"]["full_text"]
-        unfiltered = unfiltered.replace('\n', ' ')
       else:
         unfiltered = tweet["full_text"]
-        unfiltered = unfiltered.replace('\n', ' ')
+      unfiltered = unfiltered.replace('\n', ' ')
       filtered = remove_garbage(unfiltered)
       label = is_tweet_gamer(unfiltered)
       if label != 2:
