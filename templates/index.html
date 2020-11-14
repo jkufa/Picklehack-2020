@@ -4,13 +4,27 @@
 <main class="main">
   <section class="enter-tweet">
     <h1>Gamer Tweet Detector</h1>
-    <form action="#" method="POST">
+    <form action="#check_tweet" method="POST">
       <label>Find out if your favorite tweet is a gamer tweet or not.</label>
       <center>
         <input type="text" class="form-control" id="tweet-url" name="tweet-url" placeholder="Enter a tweet url" required>
-      </center>
-      <button name="submit-tweet" type="submit" class="btn submit-tweet" id="submit">Submit</button>
-    </form>
+        <button name="submit-tweet" type="submit" class="btn submit-tweet" id="submit">Submit</button>
+      </form>
+      {% if button_pressed %}
+        <blockquote class="twitter-tweet" data-theme="dark">
+          <p lang="en" dir="ltr">Tweet 
+          <a id="tweet-embed"href={{ tweet_url }}></a>
+        </blockquote> 
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+        {% if is_gamer %}
+          <p>This IS a gamer tweet.</p>
+          {% else %}
+          <p> This is NOT a gamer tweet.</p>
+          {% endif %}
+        </br>
+        <p>{{f1_score}}% gamer</p>
+      {% endif %}
+    </center>
   </section>
 </main>
 {% endblock %}

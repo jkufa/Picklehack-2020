@@ -2,6 +2,11 @@ body {
   background-color: cadetblue;
 }
 
+.navbar {
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
 .main {
   padding-top: 3rem;
   padding-left: 10rem;
