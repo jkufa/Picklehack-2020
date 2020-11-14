@@ -49,15 +49,7 @@ def get_tweets_username(twitter, username):
     filtered = remove_garbage(unfiltered)
 
     label = is_tweet_gamer(unfiltered)
-    csv_handling(username, label, filtered, unfiltered)
-
-  
-def init_csv(username):
-    with open(username + '.csv', 'wb') as csvfile:
-      filewriter = csv.writer(csvfile, delimiter=',',
-                              quotechar='|', quoting=csv.QUOTE_MINIMAL)
-      filewriter.writerow(['Id', 'Label', 'Unfiltered', 'Filtered'])      
-
+    csv_handling(username, label, filtered, unfiltered)    
 
 def get_tweets_random(twitter):
   char = random.choice(string.ascii_letters)
@@ -68,11 +60,8 @@ def get_tweets_random(twitter):
     else:
       unfiltered = tweet["full_text"]
     filtered = remove_garbage(unfiltered)
-
     label = is_tweet_gamer(unfiltered)
-
     csv_handling("random", label, filtered, unfiltered)
-
 
 def csv_handling(filename, label, filt, unfilt):
   global tweet_id
@@ -81,21 +70,13 @@ def csv_handling(filename, label, filt, unfilt):
   f = open(filename+'.csv', 'a')
   f.write(row)
   f.close()
-  
-  
-
-# global counter id
-# unfiltered
-# filtered
-  
-
 
 def main():
   keys = []
   f = open("TWITTER_KEYS.txt", "r")
   for line in f:
     keys.append(line.rstrip('\n').rsplit(': ', 1)[1])
-  twitter = Twython(keys[0], access_token=keys[2])
+  twitter = Twython(keys[0], access_token=keys[2]) 
   f.close()
 
   # Check arguments
