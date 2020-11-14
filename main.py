@@ -102,7 +102,7 @@ def main():
   # Check arguments
   if len(sys.argv) > 1:
     username = sys.argv[1]
-    f = open(username+'.csv', 'a')
+    f = open('./data/'+username+'.csv', 'a')
     # TODO: Verify username exists
     get_tweets_username(twitter, username)
   else:
