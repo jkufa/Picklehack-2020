@@ -12,6 +12,7 @@ import csv
 import random
 import string
 
+
 tweet_id = 0
 
 # "@[\w]*" for twitter handles 
@@ -32,8 +33,8 @@ def is_tweet_gamer(tweet):
   print(tweet)
   invalid_input = True
   while(invalid_input):
-    is_gamer = input("Is the following tweet a gamer tweet? 1 = yes, 0 = no: ")
-    if(int(is_gamer) == 0 or int(is_gamer) == 1):
+    is_gamer = input("Is the following tweet a gamer tweet? 2 = discard, 1 = yes, 0 = no: ")
+    if(int(is_gamer) == 0 or int(is_gamer) == 1 or int(is_gamer) == 2):
       invalid_input = False
       return int(is_gamer)
     else:
@@ -47,9 +48,11 @@ def get_tweets_username(twitter, username):
     else:
       unfiltered = tweet["full_text"]
     filtered = remove_garbage(unfiltered)
-
     label = is_tweet_gamer(unfiltered)
-    csv_handling(username, label, filtered, unfiltered)    
+    if label != 2:
+      # username is the filename
+      csv_handling(username, label, filtered, unfiltered)    
+  
 
 def get_tweets_random(twitter):
   char = random.choice(string.ascii_letters)
@@ -57,16 +60,18 @@ def get_tweets_random(twitter):
   for tweet in data['statuses']:
     if "retweeted_status" in tweet:
       unfiltered = tweet["retweeted_status"]["full_text"]
+      unfiltered = unfiltered.replace('\n', ' ')
     else:
       unfiltered = tweet["full_text"]
     filtered = remove_garbage(unfiltered)
     label = is_tweet_gamer(unfiltered)
-    csv_handling("random", label, filtered, unfiltered)
+    if label != 2:
+      csv_handling("random", label, filtered, unfiltered)    
 
 def csv_handling(filename, label, filt, unfilt):
   global tweet_id
   tweet_id += 1
-  row = str(tweet_id) + ',' + str(label) + ',' + filt + ',' + unfilt + '\n'
+  row = str(tweet_id) + ',' + str(label) + ',' + filt + ' \n'
   f = open(filename+'.csv', 'a')
   f.write(row)
   f.close()
@@ -86,8 +91,13 @@ def main():
     # TODO: Verify username exists
     get_tweets_username(twitter, username)
   else:
-    f = open('random.csv', 'a')
-    print("getting random tweet")
+    try:
+      f = open('random.csv', 'r+')
+      last_line = f.readlines()[-1]
+      global tweet_id
+      tweet_id = int(last_line.split(',')[0])
+    except:
+      f = open('random.csv', 'a')
     get_tweets_random(twitter)
   f.close()
 
