@@ -56,17 +56,19 @@ def get_tweets_username(twitter, username):
 
 def get_tweets_random(twitter):
   char = random.choice(string.ascii_letters)
+  print(char)
   data = twitter.search(q=char, tweet_mode='extended', count=500, lang='en', result_type='mixed')
   for tweet in data['statuses']:
-    if "retweeted_status" in tweet:
-      unfiltered = tweet["retweeted_status"]["full_text"]
-      unfiltered = unfiltered.replace('\n', ' ')
-    else:
-      unfiltered = tweet["full_text"]
-    filtered = remove_garbage(unfiltered)
-    label = is_tweet_gamer(unfiltered)
-    if label != 2:
-      csv_handling("random", label, filtered, unfiltered)    
+    if random.randint(0,4) == 0:
+      if "retweeted_status" in tweet:
+        unfiltered = tweet["retweeted_status"]["full_text"]
+        unfiltered = unfiltered.replace('\n', ' ')
+      else:
+        unfiltered = tweet["full_text"]
+      filtered = remove_garbage(unfiltered)
+      label = is_tweet_gamer(unfiltered)
+      if label != 2:
+        csv_handling("random", label, filtered, unfiltered)    
 
 def csv_handling(filename, label, filt, unfilt):
   global tweet_id
