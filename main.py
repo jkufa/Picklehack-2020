@@ -40,7 +40,7 @@ def is_tweet_gamer(tweet):
       print("Error: invalid input. Please try again.")
 
 def get_tweets_username(twitter, username):
-  data = twitter.get_user_timeline(name=username, tweet_mode='extended', count=100)
+  data = twitter.get_user_timeline(screen_name=username, tweet_mode='extended', count=100)
   for tweet in data:
     if "retweeted_status" in tweet:
       unfiltered = tweet["retweeted_status"]["full_text"]
@@ -81,7 +81,6 @@ def main():
 
   # Check arguments
   if len(sys.argv) > 1:
-    print(sys.argv[1])
     username = sys.argv[1]
     f = open(username+'.csv', 'a')
     # TODO: Verify username exists
